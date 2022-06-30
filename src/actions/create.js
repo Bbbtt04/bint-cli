@@ -94,7 +94,7 @@ function cloneTemplate(templateName, descriptionName, ProjectName) {
     })
 }
 function cloneTemplateFailed(ProjectName) {
-    console.log(chalk.redBright(`\n项目创建失败，请检查网络设置并重试\n`));
+    console.log(chalk.redBright(`\n项目创建失败,请检查网络设置并重试\n`));
 
     inquirer.prompt({
         type: 'confirm',
