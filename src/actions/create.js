@@ -57,14 +57,11 @@ function chooseTemplate(answerName, ProjectName) {
         case 'Angular(暂无此选项)':
             noTemplate(answerName);
             break;
-        case 'Nest+JWT全栈开发模板':
-            noTemplate('nest-jwt-init-template', answerName, ProjectName);
-            break;
     }
 }
 
 function cloneTemplate(templateName, descriptionName, ProjectName) {
-    axios.get('https://api.github.com/users/boyyangzai/repos').then(res => {
+    axios.get('https://api.github.com/users/Bbbtt04/repos').then(res => {
         res.data.forEach(item => {
             if (item.name == templateName) {
                 const spinner = ora(`Downloadinging ${templateName}`).start();
