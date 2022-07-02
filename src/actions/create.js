@@ -49,7 +49,7 @@ const create = async (ProjectName) => {
 function chooseTemplate(answerName, ProjectName) {
     switch (answerName) {
         case 'Vue3.2+Vite+TS+工程化工具':
-            cloneTemplate('vue3.2-vite-template', answerName, ProjectName);
+            cloneTemplate('template-vue3-ts', answerName, ProjectName);
             break;
         case 'React(暂无此选项,建议上umi)':
             noTemplate(answerName);
@@ -61,30 +61,24 @@ function chooseTemplate(answerName, ProjectName) {
 }
 
 function cloneTemplate(templateName, descriptionName, ProjectName) {
-    axios.get('https://api.github.com/users/Bbbtt04/repos').then(res => {
-        res.data.forEach(item => {
-            if (item.name == templateName) {
-                const spinner = ora(`Downloadinging ${templateName}`).start();
-                download("direct:" + item.clone_url, ProjectName, { clone: true }, (err) => {
-                    spinner.stop();
-                    fs.access(path.resolve(process.cwd(), ProjectName), fs.constants.F_OK, (err) => {
-                        if (err) {
-                            cloneTemplateFailed(ProjectName);
-                        } else {
-                            fs.readdir(path.resolve(process.cwd(), ProjectName), {
-                                encoding: 'utf-8'
-                            }, (err, files) => {
-                                if (files.length == 0) {
-                                    cloneTemplateFailed(ProjectName);
-                                } else {
-                                    console.log(chalk.greenBright(`\n项目创建成功✨✨\n`));
-                                    console.log(chalk.greenBright(`\n1. cd ${ProjectName}\n`));
-                                    console.log(chalk.greenBright(`\n2. npm install \n`));
-                                    console.log(chalk.greenBright(`\n3. 执行项目启动命令\n`));
-                                }
-                            })
-                        }
-                    });
+    const spinner = ora(`Downloadinging ${templateName}`).start();
+    download("direct:https://github.com/Bbbtt04/template-vue3-ts.git", ProjectName, { clone: true }, (err) => {
+        spinner.stop();
+        fs.access(path.resolve(process.cwd(), ProjectName), fs.constants.F_OK, (err) => {
+            if (err) {
+                cloneTemplateFailed(ProjectName);
+            } else {
+                fs.readdir(path.resolve(process.cwd(), ProjectName), {
+                    encoding: 'utf-8'
+                }, (err, files) => {
+                    if (files.length == 0) {
+                        cloneTemplateFailed(ProjectName);
+                    } else {
+                        console.log(chalk.greenBright(`项目创建成功✨✨\n`));
+                        console.log(chalk.greenBright(`1. cd ${ProjectName}`));
+                        console.log(chalk.greenBright(`2. npm install `));
+                        console.log(chalk.greenBright(`3. 执行项目启动命令`));
+                    }
                 })
             }
         });
