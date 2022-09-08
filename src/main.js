@@ -5,11 +5,13 @@ const commandLists = [{
     name: 'create',
     type: '<ProjectName>',
     alias: 'c',
+    description: '创建一个新项目'
 },
 {
     name: 'hello',
     alias: 'h',
     type: '<YourName>',
+    description: 'say hello'
 }
 ]
 
@@ -21,6 +23,7 @@ for (let item in commandLists) {
         .action(
             actions
         )
+        .description(commandLists[item].description)
 }
 
 program.parse(process.argv)
